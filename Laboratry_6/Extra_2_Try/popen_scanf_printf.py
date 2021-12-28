@@ -1,15 +1,14 @@
-#!/ usr/bin / python
-
+#!/usr/bin/python2.7
 import re
 from pwn import p32, process
 
-p = process ('./scanf_printf')
+p = process('./scanf_printf')
 libc_addr = None
 
-with open('/proc/{}/maps'.format(p.pid), 'r') as fd :
-    for l in fd :
-        r = re.search(r'^([0 -9a-f ]*)-.*/lib32/libc-2.19.so$', l )
-        if r :
+with open('/proc/{}/maps'.format(p.pid), 'r') as fd:
+    for l in fd:
+        r = re.search(r'^([0 -9a-f ]*)-.*/lib32/libc-2.24.so$', l)
+        if r:
             libc_addr = int(r.group(1), 16)
             break
 
